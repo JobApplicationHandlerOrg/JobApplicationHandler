@@ -33,6 +33,16 @@
             "related": ".pdb;.xml"
           }
         }
+      },
+      "JobApplicationHandler.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "compile": {
+          "bin/placeholder/JobApplicationHandler.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/JobApplicationHandler.Contracts.dll": {}
+        }
       }
     }
   },
@@ -67,10 +77,16 @@
         "microsoft.openapi.1.6.17.nupkg.sha512",
         "microsoft.openapi.nuspec"
       ]
+    },
+    "JobApplicationHandler.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../JobApplicationHandler.Contracts/JobApplicationHandler.Contracts.csproj",
+      "msbuildProject": "../JobApplicationHandler.Contracts/JobApplicationHandler.Contracts.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net9.0": [
+      "JobApplicationHandler.Contracts >= 1.0.0",
       "Microsoft.AspNetCore.OpenApi >= 9.0.0"
     ]
   },
@@ -106,7 +122,11 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\ericn\\OneDrive\\Skrivbord\\JobApplicationHandler\\JobApplicationHandler.Contracts\\JobApplicationHandler.Contracts.csproj": {
+              "projectPath": "C:\\Users\\ericn\\OneDrive\\Skrivbord\\JobApplicationHandler\\JobApplicationHandler.Contracts\\JobApplicationHandler.Contracts.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
