@@ -4,13 +4,13 @@ namespace JobApplicationHandler.Server.Repositories;
 
 public interface IJobApplicationRepository
 {
-    public Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync();
+    public Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(string id);
 }
 
 public class JobApplicationRepository: IJobApplicationRepository
 {
-    public Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync()
+    public async Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(string id)
     {
-        return Context GetJobApplicationsByIdAsync();
+        return await Context GetJobApplicationsByIdAsync(id);
     }
 }
