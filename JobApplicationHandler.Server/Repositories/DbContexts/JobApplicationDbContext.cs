@@ -1,11 +1,9 @@
-﻿using JobApplicationHandler.Contracts.Users;
+﻿using JobApplicationHandler.Contracts.JobApplications;
 using Microsoft.EntityFrameworkCore;
 
 namespace JobApplicationHandler.Server.Repositories.DbContexts;
 
-public class JobApplicationDbContext: DbContext
+public class JobApplicationDbContext(DbContextOptions<JobApplicationDbContext> options) : DbContext(options)
 {
-    public JobApplicationDbContext(DbContextOptions<JobApplicationDbContext> options) : base(options) { }
-    
-    public DbSet<JobApplicationUser[]> Users { get; set; }
+    public DbSet<JobApplication> JobApplications { get; set; }  
 }

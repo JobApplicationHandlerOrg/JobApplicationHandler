@@ -8,7 +8,7 @@ public class JobApplication
     public DateTime ApplicationDate { get; set; }
     public WorkType? WorkType { get; set; }
     public string? Location { get; set; }
-    public int? WFHDays { get; set; }
-    public required string ApplicationURL { get; set; }
+    public int? OnLocationInDays { get; set; }
+    public required string ApplicationUrl { get; set; }
     
 }
