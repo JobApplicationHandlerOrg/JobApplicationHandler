@@ -1,4 +1,5 @@
 ﻿using JobApplicationHandler.Contracts.JobApplications;
+using JobApplicationHandler.Server.Repositories;
 
 namespace JobApplicationHandler.Server.Services;
 

@@ -1,7 +1,12 @@
+using JobApplicationHandler.Server.Configurations.ServiceRegistration;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+//Services
+builder.Services.AddServiceRegistration(builder.Configuration);
+//DB Contexts
+
+
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
