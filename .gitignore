@@ -16,8 +16,8 @@
 *.sln.iml
 
 # Build output
-bin/
-obj/
+*.bin/
+*.obj/
 *.cache
 *.nuget.info
 
