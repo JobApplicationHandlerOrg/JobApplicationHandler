@@ -8,7 +8,11 @@ public static class ServiceRegistration
     public static IServiceCollection AddServiceRegistration(this IServiceCollection services,
         IConfiguration configuration)
     {
+        
+        
         services.AddScoped<IJobApplicationService, JobApplicationService>();
+        
+        
         services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
         
         return services;
