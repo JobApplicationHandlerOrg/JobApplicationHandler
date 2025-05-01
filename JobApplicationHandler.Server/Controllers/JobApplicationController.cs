@@ -12,9 +12,9 @@ public class JobApplicationController(IJobApplicationService jobApplicationServi
 {
 
     
-    public async Task<JobApplication> GetJobApplicationById(string applicationId)
+    [HttpGet]
+    public async Task<IEnumerable<JobApplication>> GetJobApplicationById(string applicationId)
     {
-        //Do things
         return await jobApplicationService.GetJobApplicationByIdAsync(applicationId);
     }
 }

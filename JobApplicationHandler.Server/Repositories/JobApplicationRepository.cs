@@ -1,5 +1,6 @@
 ﻿using JobApplicationHandler.Contracts.JobApplications;
 using JobApplicationHandler.Server.Repositories.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobApplicationHandler.Server.Repositories;
 
@@ -14,8 +15,8 @@ public class JobApplicationRepository(JobApplicationDbContext dbContext) : IJobA
 
     public async Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(string id)
     {
-        return  _dbContext.JobApplications
-            .Where(j => j.Id == id);
-
+        return await _dbContext.JobApplications
+            .Where(j => j.Id == id)
+            .ToListAsync();
     }
 }
