@@ -12,9 +12,22 @@ public class JobApplicationController(IJobApplicationService jobApplicationServi
 {
 
     
-    public async Task<JobApplication> GetJobApplicationById(string applicationId)
+    [HttpGet]
+    public async Task<IEnumerable<JobApplication>> GetJobApplicationById(string applicationId)
     {
-        //Do things
         return await jobApplicationService.GetJobApplicationByIdAsync(applicationId);
     }
+    
+    [HttpPost]
+    public async Task<IActionResult> PostJobApplication([FromBody] JobApplication application)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        await jobApplicationService.AddApplicationAsync(application);
+        return CreatedAtAction(nameof(PostJobApplication), new { id = application.Id }, application);
+    }
 }
+    
