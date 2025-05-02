@@ -3,31 +3,48 @@ using JobApplicationHandler.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace JobApplicationHandler.Server.Controllers;
+
+namespace JobApplicationHandler.Contracts.JobApplications
+{
+    public interface IJobApplicationController
+    {
+        Task<ActionResult<JobApplication>> GetJobApplicationByIdAsync(string id);
+        Task<IActionResult> CreateApplicationAsync(JobApplication application);
+    }
+}
 
 [ApiController]
-[Authorize]
-[Route("[controller]/[action]")]
-public class JobApplicationController(IJobApplicationService jobApplicationService): Controller
+[Route("api/jobapplication")]
+public class JobApplicationController(IJobApplicationService jobApplicationService): Controller, IJobApplicationController
 {
 
     
-    [HttpGet]
-    public async Task<IEnumerable<JobApplication>> GetJobApplicationById(string applicationId)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<JobApplication>> GetJobApplicationByIdAsync(string id)
     {
-        return await jobApplicationService.GetJobApplicationByIdAsync(applicationId);
+        var application = await jobApplicationService.GetJobApplicationByIdAsync(id);
+
+        return Ok(application);
     }
     
     [HttpPost]
-    public async Task<IActionResult> PostJobApplication([FromBody] JobApplication application)
+    public async Task<IActionResult> CreateApplicationAsync([FromBody] JobApplication application)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
-
-        await jobApplicationService.AddApplicationAsync(application);
-        return CreatedAtAction(nameof(PostJobApplication), new { id = application.Id }, application);
+        //TODO: cleanup
+        var result = await jobApplicationService.CreateApplicationAsync(application);
+    
+        return result ? Ok() : StatusCode(500, "An error occurred while processing your request.");
     }
+
+    [HttpGet("hello")]
+    public string sayHello()
+    {
+        return "Hello";
+    }
+
 }
     
