@@ -13,6 +13,7 @@ public static class ServiceRegistration
         services.AddScoped<IJobApplicationService, JobApplicationService>();
         services.AddScoped<IJobApplicationRepository, JobApplicationRepository>();
         
+        
         return services;
     }
 }
