@@ -6,7 +6,7 @@ public class JobApplication
 {
 
     [Key]
-    public String Id { get; set; } = Guid.NewGuid().ToString();
+    public string Id { get; } = Guid.NewGuid().ToString();
     
     [Required]
     [StringLength(100, MinimumLength = 2)]
@@ -19,14 +19,14 @@ public class JobApplication
     [Required]
     [DataType(DataType.Date)]
     [Display(Name = "Application Date")]
-    public DateTime ApplicationDate { get; set; } = DateTime.UtcNow;
+    public DateTime ApplicationDate { get; init; } = DateTime.UtcNow;
     
     public WorkType? WorkType { get; set; }
     
     [StringLength(100)]
     public string? Location { get; set; }
     
-    [Range(0, 5, ErrorMessage = "OnLocationInDays must be between 0 and 5.")]
+    [Range(0, 7, ErrorMessage = "OnLocationInDays must be between 0 and 7.")]
     public int? OnLocationInDays { get; set; }
     
     [Required]

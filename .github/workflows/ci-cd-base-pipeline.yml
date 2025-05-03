@@ -35,10 +35,6 @@ jobs:
       env:
         Solution_Name: ${{ env.Solution_Name }}
 
-    # Debugging: Check current directory
-    - name: Check current directory
-      run: pwd
-
     # Build the application
     - name: Build the application
       run: dotnet build ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }}
