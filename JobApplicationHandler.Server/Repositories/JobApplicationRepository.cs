@@ -6,20 +6,19 @@ namespace JobApplicationHandler.Server.Repositories;
 
 public interface IJobApplicationRepository
 {
-    Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(string id);
+    Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(String id);
     Task<JobApplication> CreateJobApplicationAsync(JobApplication jobApplication);
     Task<JobApplication?> UpdateJobApplicationAsync(JobApplication jobApplication);
-    Task<bool> DeleteJobApplicationAsync(string id);
+    Task<bool> DeleteJobApplicationAsync(Guid id);
 }
 
 
 public class JobApplicationRepository(JobApplicationDbContext dbContext) : IJobApplicationRepository
 {
-    
-    public async Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(string id)
+    public async Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(String id)
     {
         return await dbContext.JobApplications
-            .Where(j => j.Id == id)
+            .Where(j => j.Id == id) 
             .ToListAsync();
     }
 
@@ -40,7 +39,8 @@ public class JobApplicationRepository(JobApplicationDbContext dbContext) : IJobA
         return existing;
     }
 
-    public async Task<bool> DeleteJobApplicationAsync(string id)
+    
+    public async Task<bool> DeleteJobApplicationAsync(Guid id)
     {
         var jobApp = await dbContext.JobApplications.FindAsync(id);
         if (jobApp == null) return false;

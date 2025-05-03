@@ -8,7 +8,7 @@ namespace JobApplicationHandler.Contracts.JobApplications
 {
     public interface IJobApplicationController
     {
-        Task<ActionResult<JobApplication>> GetJobApplicationByIdAsync(string id);
+        Task<ActionResult<JobApplication>> GetJobApplicationByIdAsync(String id);
         Task<IActionResult> CreateApplicationAsync(JobApplication application);
     }
 }
@@ -20,7 +20,7 @@ public class JobApplicationController(IJobApplicationService jobApplicationServi
 
     
     [HttpGet("{id}")]
-    public async Task<ActionResult<JobApplication>> GetJobApplicationByIdAsync(string id)
+    public async Task<ActionResult<JobApplication>> GetJobApplicationByIdAsync(String id)
     {
         var application = await jobApplicationService.GetJobApplicationByIdAsync(id);
 
