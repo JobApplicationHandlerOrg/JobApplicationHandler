@@ -1,0 +1,52 @@
+name: CI/CD Base Pipeline
+
+on:
+  push:
+    branches: [ "development", "main" ]
+  pull_request:
+    branches: [ "development", "main" ]
+
+jobs:
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    runs-on: ubuntu-latest  
+
+    env:
+      Solution_Name: JobApplicationHandler.sln
+      #Test_Project_Path: JobApplicationHandler.Tests/JobApplicationHandler.Tests.csproj
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Install the .NET SDK
+    - name: Install .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 9.0.101
+
+    # Restore NuGet packages
+    - name: Restore the application
+      run: dotnet restore ${{ env.Solution_Name }}
+      env:
+        Solution_Name: ${{ env.Solution_Name }}
+
+    # Build the application
+    - name: Build the application
+      run: dotnet build $env:Solution_Name --configuration ${{ matrix.configuration }}
+      env:
+        Solution_Name: ${{ env.Solution_Name }}
+
+    # Run unit tests
+    #- name: Execute unit tests
+    #  run: dotnet test $env:Test_Project_Path --configuration ${{ matrix.configuration }}
+    #  env:
+    #   Test_Project_Path: ${{ env.Test_Project_Path }}
+
+
