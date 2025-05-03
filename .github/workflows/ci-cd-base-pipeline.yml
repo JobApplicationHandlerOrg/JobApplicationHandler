@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     strategy:
       matrix:
         configuration: [Debug, Release]
@@ -17,7 +16,6 @@ jobs:
 
     env:
       Solution_Name: JobApplicationHandler.sln
-      #Test_Project_Path: JobApplicationHandler.Tests/JobApplicationHandler.Tests.csproj
 
     steps:
     - name: Checkout
@@ -37,16 +35,18 @@ jobs:
       env:
         Solution_Name: ${{ env.Solution_Name }}
 
+    # Debugging: Check current directory
+    - name: Check current directory
+      run: pwd
+
     # Build the application
     - name: Build the application
-      run: dotnet build $env:Solution_Name --configuration ${{ matrix.configuration }}
+      run: dotnet build ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }}
       env:
         Solution_Name: ${{ env.Solution_Name }}
 
-    # Run unit tests
+    # Run unit tests (optional, as you currently don't have a test project)
     #- name: Execute unit tests
     #  run: dotnet test $env:Test_Project_Path --configuration ${{ matrix.configuration }}
     #  env:
     #   Test_Project_Path: ${{ env.Test_Project_Path }}
-
-
