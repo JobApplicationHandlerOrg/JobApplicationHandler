@@ -7,20 +7,30 @@ public static class DbContextRegistration
 {
     public static IServiceCollection AddDbContextRegistration(this IServiceCollection services, IConfiguration configuration)
     {
-        
-        var jobAppUserDb = configuration.GetConnectionString("JobAppUserDb")
-                           ?? throw new InvalidOperationException("Connection string 'JobAppUserDb' not found.");
+        var jobAppUserConn = BuildPostgresConnectionString(configuration, "JobAppUserDbName");
+        var jobApplicationConn = BuildPostgresConnectionString(configuration, "JobApplicationDbName");
 
-        var jobApplicationDb = configuration.GetConnectionString("JobApplicationDb")
-                               ?? throw new InvalidOperationException("Connection string 'JobApplicationDb' not found.");
-
-        
         services.AddDbContext<JobApplicationDbContext>(options =>
-            options.UseSqlServer(jobApplicationDb)); 
+            options.UseNpgsql(jobApplicationConn));
 
-        services.AddDbContext<JobAppUserDbContext>(options => 
-            options.UseSqlServer(jobAppUserDb)); 
-        
+        services.AddDbContext<JobAppUserDbContext>(options =>
+            options.UseNpgsql(jobAppUserConn));
+
         return services;
+    }
+
+    private static string BuildPostgresConnectionString(IConfiguration config, string dbNameKey)
+    {
+        
+        var host = config["ConnectionStrings:PostgresDbHost"] ?? "localhost";
+        var port = config["ConnectionStrings:PostgresDbPort"] ?? "5432";
+        var username = config["ConnectionStrings:PostgresDbUsername"] 
+                       ?? throw new InvalidOperationException("PostgresDbUsername not set.");
+        var password = config["ConnectionStrings:PostgresDbPassword"] 
+                       ?? throw new InvalidOperationException("PostgresDbPassword not set.");
+        var database = config[$"ConnectionStrings:{dbNameKey}"] 
+                       ?? throw new InvalidOperationException($"{dbNameKey} not set.");
+
+        return $"Host={host};Port={port};Database={database};Username={username};Password={password};";
     }
 }

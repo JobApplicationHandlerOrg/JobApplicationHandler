@@ -5,9 +5,8 @@ namespace JobApplicationHandler.Contracts.JobApplications;
 public class JobApplication
 {
 
-    [Required]
-    [StringLength(50, MinimumLength = 3)]
-    public string Id { get; set; }
+    [Key]
+    public String Id { get; set; } = Guid.NewGuid().ToString();
     
     [Required]
     [StringLength(100, MinimumLength = 2)]
@@ -20,7 +19,7 @@ public class JobApplication
     [Required]
     [DataType(DataType.Date)]
     [Display(Name = "Application Date")]
-    public DateTime ApplicationDate { get; set; }
+    public DateTime ApplicationDate { get; set; } = DateTime.UtcNow;
     
     public WorkType? WorkType { get; set; }
     

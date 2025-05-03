@@ -5,12 +5,12 @@ namespace JobApplicationHandler.Server.Services;
 
 public interface IJobApplicationService
 {
-    Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(string id);
+    Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(String id);
     Task<bool> CreateApplicationAsync(JobApplication application);
 }
 public class JobApplicationService(IJobApplicationRepository jobApplicationRepository): IJobApplicationService
 {
-    public async Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(string id)
+    public async Task<IEnumerable<JobApplication>> GetJobApplicationByIdAsync(String id)
     {
         return await jobApplicationRepository.GetJobApplicationByIdAsync(id);
     }
