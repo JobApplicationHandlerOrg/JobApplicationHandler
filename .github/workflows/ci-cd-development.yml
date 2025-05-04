@@ -1,4 +1,4 @@
-﻿name: CI/CD Base Pipeline
+﻿name: Deployment to development pipeline
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build and run tests
+    name: Development deployment - build and test
     environment: Development
     runs-on: ubuntu-latest
 
