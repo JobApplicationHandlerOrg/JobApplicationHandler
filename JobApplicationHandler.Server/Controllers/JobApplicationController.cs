@@ -18,6 +18,7 @@ namespace JobApplicationHandler.Contracts.JobApplications
 public class JobApplicationController(IJobApplicationService jobApplicationService): Controller, IJobApplicationController
 {
 
+    //Adding a comment to test a PR
     
     [HttpGet("{id}")]
     public async Task<ActionResult<JobApplication>> GetJobApplicationByIdAsync(String id)
