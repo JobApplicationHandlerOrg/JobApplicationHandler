@@ -38,12 +38,7 @@ public class JobApplicationController(IJobApplicationService jobApplicationServi
     
         return result ? Ok() : StatusCode(500, "An error occurred while processing your request.");
     }
-
-    [HttpGet("hello")]
-    public string sayHello()
-    {
-        return "Hello";
-    }
+    
 
 }
     
