@@ -1,7 +1,7 @@
 ﻿using JobApplicationHandler.Server.Repositories;
 using JobApplicationHandler.Server.Services;
 
-namespace JobApplicationHandler.Server.Configurations.ServiceRegistration;
+namespace JobApplicationHandler.Server.Configurations.Extensions.ServiceRegistration;
 
 public static class ServiceRegistration
 {

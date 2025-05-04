@@ -15,6 +15,9 @@
 .idea/
 *.sln.iml
 
+#Secrets double ensure it wont follow
+**/secrets.json
+
 # Build output
 bin/
 obj/

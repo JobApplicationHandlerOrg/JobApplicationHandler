@@ -1,7 +1,7 @@
 ﻿using JobApplicationHandler.Server.Repositories.DbContexts;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobApplicationHandler.Server.Configurations.DBContexts;
+namespace JobApplicationHandler.Server.Configurations.Extensions.DbContexts;
 
 public static class DbContextRegistration
 {
@@ -22,8 +22,8 @@ public static class DbContextRegistration
     private static string BuildPostgresConnectionString(IConfiguration config, string dbNameKey)
     {
         
-        var host = config["ConnectionStrings:PostgresDbHost"] ?? "localhost";
-        var port = config["ConnectionStrings:PostgresDbPort"] ?? "5432";
+        var host = config["ConnectionStrings:PostgresDbHost"];
+        var port = config["ConnectionStrings:PostgresDbPort"] ;
         var username = config["ConnectionStrings:PostgresDbUsername"] 
                        ?? throw new InvalidOperationException("PostgresDbUsername not set.");
         var password = config["ConnectionStrings:PostgresDbPassword"] 

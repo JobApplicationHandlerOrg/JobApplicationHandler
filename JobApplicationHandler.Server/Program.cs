@@ -1,9 +1,12 @@
-using JobApplicationHandler.Server.Configurations.DBContexts;
-using JobApplicationHandler.Server.Configurations.ServiceRegistration;
 using System.Text.Json.Serialization;
+using JobApplicationHandler.Server.Configurations.Extensions.Configuration;
+using JobApplicationHandler.Server.Configurations.Extensions.DbContexts;
+using JobApplicationHandler.Server.Configurations.Extensions.ServiceRegistration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Configurations
+builder.Configuration.AddDConfigurationSettings(builder.Environment);
 //Services
 builder.Services.AddServiceRegistration(builder.Configuration);
 //DB Contexts
