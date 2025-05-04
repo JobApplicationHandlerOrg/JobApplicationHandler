@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobApplicationHandler.Contr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobApplicationHandler.Server", "JobApplicationHandler.Server\JobApplicationHandler.Server.csproj", "{D927D9DB-D9C5-42EC-AD2E-18863E3F7BBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobApplicationHandler.Tests", "JobApplicationHandler.Tests\JobApplicationHandler.Tests.csproj", "{7F7A6444-A5BC-47EB-9CC8-B94A4CB10470}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{D927D9DB-D9C5-42EC-AD2E-18863E3F7BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D927D9DB-D9C5-42EC-AD2E-18863E3F7BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D927D9DB-D9C5-42EC-AD2E-18863E3F7BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F7A6444-A5BC-47EB-9CC8-B94A4CB10470}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F7A6444-A5BC-47EB-9CC8-B94A4CB10470}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F7A6444-A5BC-47EB-9CC8-B94A4CB10470}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F7A6444-A5BC-47EB-9CC8-B94A4CB10470}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
