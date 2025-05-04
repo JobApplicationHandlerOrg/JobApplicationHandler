@@ -1,20 +1,20 @@
-name: CI/CD Base Pipeline
+﻿name: CI/CD Base Pipeline
 
 on:
   push:
-    branches: [ "development", "main" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "development", "main" ]
+    branches: [ "main" ]
 
 jobs:
   build:
     name: Build and run tests
-    environment: ${{ github.ref_name }}
+    environment: Production
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        configuration: [Debug, Release]
+        configuration: [Release]
 
     env:
       Solution_Name: JobApplicationHandler.sln

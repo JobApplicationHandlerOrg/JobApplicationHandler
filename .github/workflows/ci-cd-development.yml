@@ -1,0 +1,46 @@
+﻿name: CI/CD Base Pipeline
+
+on:
+  push:
+    branches: [ "development" ]
+  pull_request:
+    branches: [ "development" ]
+
+jobs:
+  build:
+    name: Build and run tests
+    environment: Development
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+
+    env:
+      Solution_Name: JobApplicationHandler.sln
+      ConnectionStrings__PostgresDbHost: ${{ secrets.PostgresDbHost }}
+      ConnectionStrings__PostgresDbPort: ${{ secrets.PostgresDbPort }}
+      ConnectionStrings__PostgresDbUsername: ${{ secrets.PostgresDbUsername }}
+      ConnectionStrings__PostgresDbPassword: ${{ secrets.PostgresDbPassword }}
+      ConnectionStrings__JobAppUserDbName: ${{ secrets.JobAppUserDbName }}
+      ConnectionStrings__JobApplicationDbName: ${{ secrets.JobApplicationDbName }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.101
+
+      - name: Restore the application
+        run: dotnet restore ${{ env.Solution_Name }}
+
+      - name: Build the application
+        run: dotnet build ${{ env.Solution_Name }} --configuration ${{ matrix.configuration }}
+
+      - name: Execute unit tests
+        run: dotnet test JobApplicationHandler.Tests/JobApplicationHandler.Tests.csproj --configuration ${{ matrix.configuration }}
