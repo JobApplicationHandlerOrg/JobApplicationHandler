@@ -1,4 +1,4 @@
-﻿name: CI/CD Base Pipeline
+﻿name: Deployment to Production pipeline
 
 on:
   pull_request:
