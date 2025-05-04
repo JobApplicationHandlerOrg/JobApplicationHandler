@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Build and run tests
+    name: Production deployment - build and test
     environment: Production
     runs-on: ubuntu-latest
 
