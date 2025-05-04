@@ -8,11 +8,15 @@ on:
 
 jobs:
   build:
+    name: Build and run tests
+    environment: ${{ github.ref_name }}
+    runs-on: ubuntu-latest
+    
     strategy:
       matrix:
         configuration: [Debug, Release]
 
-    runs-on: ubuntu-latest  
+    
 
     env:
       Solution_Name: JobApplicationHandler.sln
@@ -41,8 +45,7 @@ jobs:
       env:
         Solution_Name: ${{ env.Solution_Name }}
 
-    # Run unit tests (optional, as you currently don't have a test project)
-    #- name: Execute unit tests
-    #  run: dotnet test $env:Test_Project_Path --configuration ${{ matrix.configuration }}
-    #  env:
-    #   Test_Project_Path: ${{ env.Test_Project_Path }}
+    - name: Execute unit tests
+      run: dotnet test JobApplicationHandler.Tests/JobApplicationHandler.Tests.csproj --configuration ${{ matrix.configuration }}
+      env:
+       Test_Project_Path: ${{ env.Test_Project_Path }}
