@@ -1,7 +1,7 @@
 ﻿name: Deployment to development pipeline
 
 on:
-  push:
+  pull_request: 
     branches: [ "development" ]
 
 jobs:
