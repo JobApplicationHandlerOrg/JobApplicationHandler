@@ -18,8 +18,6 @@ namespace JobApplicationHandler.Contracts.JobApplications
 public class JobApplicationController(IJobApplicationService jobApplicationService): Controller, IJobApplicationController
 {
     
-    //activity check on GitHub :)
-    
     [HttpGet("{id}")]
     public async Task<ActionResult<JobApplication>> GetJobApplicationByIdAsync(String id)
     {
