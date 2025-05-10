@@ -6,15 +6,15 @@ public class JobApplication
 {
 
     [Key]
-    public string Id { get; } = Guid.NewGuid().ToString();
+    public string Id { get; set; } = Guid.NewGuid().ToString();
     
     [Required]
     [StringLength(100, MinimumLength = 2)]
-    public required string CompanyName { get; set; }
+    public string CompanyName { get; set; }
     
     [Required]
     [StringLength(100, MinimumLength = 2)]
-    public required string JobTitle { get; set; }
+    public string JobTitle { get; set; }
     
     [Required]
     [DataType(DataType.Date)]
@@ -31,6 +31,6 @@ public class JobApplication
     
     [Required]
     [Url(ErrorMessage = "ApplicationUrl must be a valid URL.")]
-    public required string ApplicationUrl { get; set; }
+    public string ApplicationUrl { get; set; }
     
 }
