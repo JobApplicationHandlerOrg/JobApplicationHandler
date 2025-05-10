@@ -26,6 +26,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+//Extensions
+app.UseExceptionHandler();
 
 app.MapControllers();
 app.UseHttpsRedirection();

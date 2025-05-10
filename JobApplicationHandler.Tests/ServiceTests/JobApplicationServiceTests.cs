@@ -1,6 +1,8 @@
 ﻿using JobApplicationHandler.Contracts.JobApplications;
+using JobApplicationHandler.Server.Models.Dto.MappingExtensions;
 using JobApplicationHandler.Server.Repositories;
 using JobApplicationHandler.Server.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace JobApplicationHandler.Tests.ServiceTests;
@@ -13,7 +15,9 @@ public class JobApplicationServiceTests
     public JobApplicationServiceTests()
     {
         _mockRepo = new Mock<IJobApplicationRepository>();
-        _service = new JobApplicationService(_mockRepo.Object);
+        var mockLogger = new Mock<ILogger<JobApplicationService>>();
+
+        _service = new JobApplicationService(_mockRepo.Object, mockLogger.Object);
     }
 
     [Fact]
@@ -21,21 +25,27 @@ public class JobApplicationServiceTests
     {
         // Arrange
         const string fakeId = "123";
-        var expectedApplications = new List<JobApplication>
+
+        var expectedApplication = new JobApplication
         {
-            new JobApplication {
-                CompanyName = "Company",
-                JobTitle = ".Net Software Developer",
-                ApplicationUrl = "ApplicationUrl.com",
-            }
+            Id = fakeId,
+            CompanyName = "Company",
+            JobTitle = ".Net Software Developer",
+            ApplicationUrl = "ApplicationUrl.com"
         };
+
+        
+        var expectedDto = expectedApplication.ToDto();
+
+        
         _mockRepo.Setup(repo => repo.GetJobApplicationByIdAsync(fakeId))
-            .ReturnsAsync(expectedApplications);
+            .ReturnsAsync(expectedApplication);
 
         // Act
         var result = await _service.GetJobApplicationByIdAsync(fakeId);
 
         // Assert
-        Assert.Equal(".Net Software Developer", result.First().JobTitle);
+        Assert.Equal(".Net Software Developer", result.JobTitle);
     }
+
 }
