@@ -2,6 +2,7 @@
 using JobApplicationHandler.Server.Models.Dto.MappingExtensions;
 using JobApplicationHandler.Server.Repositories;
 using JobApplicationHandler.Server.Services;
+using Microsoft.Extensions.Logging;
 using Moq;
 
 namespace JobApplicationHandler.Tests.ServiceTests;
@@ -14,7 +15,9 @@ public class JobApplicationServiceTests
     public JobApplicationServiceTests()
     {
         _mockRepo = new Mock<IJobApplicationRepository>();
-        _service = new JobApplicationService(_mockRepo.Object);
+        var mockLogger = new Mock<ILogger<JobApplicationService>>();
+
+        _service = new JobApplicationService(_mockRepo.Object, mockLogger.Object);
     }
 
     [Fact]

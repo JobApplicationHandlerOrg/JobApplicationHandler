@@ -21,7 +21,12 @@ public static class ServiceRegistration
         services.AddProblemDetails();
         
         //Logging
-        services.AddLogging(builder => builder.AddConsole());
+        services.AddLogging(builder =>
+        {
+            builder.AddConsole();
+            builder.AddDebug();
+        });
+        services.AddHttpLogging();
         
         
         return services;
