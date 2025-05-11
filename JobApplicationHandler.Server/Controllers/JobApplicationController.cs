@@ -1,4 +1,5 @@
 ﻿using JobApplicationHandler.Contracts.JobApplications;
+using JobApplicationHandler.Server.Infrastructure.Middleware;
 using JobApplicationHandler.Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -31,12 +32,12 @@ public class JobApplicationController(IJobApplicationService jobApplicationServi
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest(ModelState);
+            throw new ProblemException("The model is invalid.", "Test", 400);
         }
         //TODO: cleanup
         var result = await jobApplicationService.CreateApplicationAsync(application);
     
-        return result ? Ok() : StatusCode(500, "An error occurred while processing your request.");
+        return result ? Ok() : throw new ProblemException("Something went wrong", "An error has occured that was no expected", 500);
     }
     
 

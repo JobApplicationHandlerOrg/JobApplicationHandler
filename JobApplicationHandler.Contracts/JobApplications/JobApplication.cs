@@ -10,11 +10,11 @@ public class JobApplication
     
     [Required]
     [StringLength(100, MinimumLength = 2)]
-    public string CompanyName { get; set; }
+    public required string CompanyName { get; set; }
     
     [Required]
     [StringLength(100, MinimumLength = 2)]
-    public string JobTitle { get; set; }
+    public required string JobTitle { get; set; }
     
     [Required]
     [DataType(DataType.Date)]
@@ -31,6 +31,6 @@ public class JobApplication
     
     [Required]
     [Url(ErrorMessage = "ApplicationUrl must be a valid URL.")]
-    public string ApplicationUrl { get; set; }
+    public required string ApplicationUrl { get; set; }
     
 }

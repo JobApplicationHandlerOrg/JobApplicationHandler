@@ -10,7 +10,7 @@ public interface IJobApplicationService
     Task<JobApplicationDto?> GetJobApplicationByIdAsync(String id);
     Task<bool> CreateApplicationAsync(JobApplication application);
 }
-public class JobApplicationService(IJobApplicationRepository jobApplicationRepository, ILogger<JobApplicationService> _logger): IJobApplicationService
+public class JobApplicationService(IJobApplicationRepository jobApplicationRepository, ILogger<JobApplicationService> logger): IJobApplicationService
 {
     
     //TODO: is this correct? Write some tests for it.
@@ -23,7 +23,7 @@ public class JobApplicationService(IJobApplicationRepository jobApplicationRepos
         }
         catch (Exception ex)
         {
-            _logger.LogInformation("Could not find the resource related to the ID {id}, ", id);
+            logger.LogInformation("Could not find the resource related to the ID {id}, and {ex} ", id, ex.Message);
             throw;
         }
     }
