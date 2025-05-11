@@ -13,11 +13,7 @@ builder.Services.AddServiceRegistration(builder.Configuration);
 builder.Services.AddDbContextRegistration(builder.Configuration);
 
 builder.Services.AddOpenApi();
-builder.Services.AddControllers()
-    .AddJsonOptions(options =>
-    {
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-    });
+
 
 var app = builder.Build();
 

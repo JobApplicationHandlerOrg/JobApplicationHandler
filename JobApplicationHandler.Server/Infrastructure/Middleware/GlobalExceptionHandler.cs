@@ -3,22 +3,50 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JobApplicationHandler.Server.Infrastructure.Middleware;
 
-public class GlobalExceptionHandler: IExceptionHandler
+[Serializable]
+public class ProblemException(string error, string errorMessage, int statusCode) : Exception(errorMessage)
+{
+    public string Error { get; } = error;
+    public string ErrorMessage { get; } = errorMessage;
+    public int StatusCode { get; } = statusCode;
+}
+
+public class GlobalExceptionHandler(
+    ILogger<GlobalExceptionHandler> logger,
+    IProblemDetailsService problemDetailsService) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
-        
-        //TODO: Log something
+        if (exception is not ProblemException problemException)
+            return false;
 
         var problemDetails = new ProblemDetails
         {
-            Detail = exception.Message,
+            Detail = problemException.ErrorMessage,
             Status = StatusCodes.Status500InternalServerError,
-            Type = "/error/500",
-            Title = "This is a test error",
+            Type = "/error/internal",
+            Title = problemException.Error
         };
-        httpContext.Response.StatusCode = problemDetails.Status.Value;
-        await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
-        return true;
+
+        logger.LogError(
+            exception,
+            """
+            ProblemException caught:
+            Type: {ExceptionType}
+            Title: {Title}
+            Detail: {Detail}
+            Path: {RequestPath}
+            """,
+            exception.GetType().Name,
+            problemDetails.Title,
+            problemDetails.Detail,
+            httpContext.Request.Path
+        );
+
+        return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
+        {
+            HttpContext = httpContext,
+            ProblemDetails = problemDetails
+        });
     }
 }
