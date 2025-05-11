@@ -4,10 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace JobApplicationHandler.Server.Infrastructure.Middleware;
 
 [Serializable]
-public class ProblemException(string error, string errorMessage) : Exception(errorMessage)
+public class ProblemException(string error, string errorMessage, int statusCode) : Exception(errorMessage)
 {
     public string Error { get; } = error;
     public string ErrorMessage { get; } = errorMessage;
+    public int StatusCode { get; } = statusCode;
 }
 
 public class GlobalExceptionHandler(
@@ -17,7 +18,7 @@ public class GlobalExceptionHandler(
     public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
     {
         if (exception is not ProblemException problemException)
-            return false; 
+            return false;
 
         var problemDetails = new ProblemDetails
         {
@@ -28,8 +29,19 @@ public class GlobalExceptionHandler(
         };
 
         logger.LogError(
-            "An exception has occurred: {Exception}. Message: {Message}. Request Path: {RequestPath}",
-            exception, exception.Message, httpContext.Request.Path);
+            exception,
+            """
+            ProblemException caught:
+            Type: {ExceptionType}
+            Title: {Title}
+            Detail: {Detail}
+            Path: {RequestPath}
+            """,
+            exception.GetType().Name,
+            problemDetails.Title,
+            problemDetails.Detail,
+            httpContext.Request.Path
+        );
 
         return await problemDetailsService.TryWriteAsync(new ProblemDetailsContext
         {
@@ -37,5 +49,4 @@ public class GlobalExceptionHandler(
             ProblemDetails = problemDetails
         });
     }
-
 }

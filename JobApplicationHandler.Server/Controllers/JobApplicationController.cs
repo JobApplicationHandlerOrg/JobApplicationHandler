@@ -32,12 +32,12 @@ public class JobApplicationController(IJobApplicationService jobApplicationServi
     {
         if (!ModelState.IsValid)
         {
-            throw new ProblemException("The model is invalid.", "Test");
+            throw new ProblemException("The model is invalid.", "Test", 400);
         }
         //TODO: cleanup
         var result = await jobApplicationService.CreateApplicationAsync(application);
     
-        return result ? Ok() : throw new ProblemException("An unrecognizable error has occured", "??");
+        return result ? Ok() : throw new ProblemException("Something went wrong", "An error has occured that was no expected", 500);
     }
     
 
