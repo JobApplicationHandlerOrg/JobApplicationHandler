@@ -40,32 +40,6 @@ public static class ServiceRegistration
                     context.HttpContext.Features.Get<IHttpActivityFeature>()?.Activity.Id);
                 
             });
-        services.Configure<ApiBehaviorOptions>(options =>
-        {
-            options.InvalidModelStateResponseFactory = context =>
-            {
-                var errors = context.ModelState
-                    .Where(e => e.Value?.Errors.Count > 0)
-                    .ToDictionary(
-                        kvp => kvp.Key,
-                        kvp => kvp.Value!.Errors.Select(e => e.ErrorMessage).ToArray()
-                    );
-
-                var validationProblem = new ValidationProblemDetails(errors)
-                {
-                    Title = "Validation failed",
-                    Status = StatusCodes.Status400BadRequest,
-                    Type = "/error/validation",
-                    Detail = "Check the 'errors' property for more information.",
-                    Instance = context.HttpContext.Request.Path
-                };
-
-                return new ObjectResult(validationProblem)
-                {
-                    StatusCode = StatusCodes.Status400BadRequest
-                };
-            };
-        });
 
         services.AddControllers()
             .ConfigureApiBehaviorOptions(options =>
@@ -79,6 +53,7 @@ public static class ServiceRegistration
                             kvp => kvp.Value!.Errors.Select(e => e.ErrorMessage).ToArray()
                         );
 
+                    //TODO: fix this 
                     var validationProblem = new ValidationProblemDetails(errors)
                     {
                         Title = "Validation failed",
