@@ -2,7 +2,7 @@
 
 namespace JobApplicationHandler.Server.Models.Dto;
 
-public class JobApplicationDto
+public record JobApplicationDto
 {
     public string Id { get; set; } = default!;
     public string CompanyName { get; set; } = default!;
@@ -13,3 +13,4 @@ public class JobApplicationDto
     public int? OnLocationInDays { get; set; }
     public string ApplicationUrl { get; set; } = default!;
 }
+
