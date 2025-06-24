@@ -37,7 +37,7 @@ public class JobApplicationController(IJobApplicationService jobApplicationServi
         //TODO: cleanup
         var result = await jobApplicationService.CreateApplicationAsync(application);
     
-        return result ? Ok() : throw new ProblemException("Something went wrong", "An error has occured that was no expected", 500);
+        return result ? Ok() : throw new ProblemException("Something went wrong", "An error has occured that was not expected", 500);
     }
     
 
