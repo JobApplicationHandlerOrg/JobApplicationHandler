@@ -66,6 +66,7 @@ public static class ServiceRegistration
                     return new BadRequestObjectResult(validationProblem);
                 };
             })
+            //json Enum Serializer default
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
